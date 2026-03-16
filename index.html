@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St. James Healing Church of Christ</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #1a0a38;
+    --navy: #2d1b69;
+    --royal: #4a2fa0;
+    --bright: #6b46c1;
+    --sky: #9f7ae8;
+    --light: #e9e0fc;
+    --cream: #f7f4fe;
+    --gold: #f5a623;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(26,10,56,0.97);
+    backdrop-filter: blur(10px);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    border-bottom: 2px solid rgba(107,70,193,0.4);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .nav-cross {
+    width: 32px; height: 32px;
+    position: relative; flex-shrink: 0;
+  }
+  .nav-cross::before, .nav-cross::after {
+    content: ''; position: absolute;
+    background: var(--gold); border-radius: 3px;
+  }
+  .nav-cross::before { width: 6px; height: 32px; left: 13px; top: 0; }
+  .nav-cross::after  { width: 32px; height: 6px; left: 0; top: 10px; }
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--white); line-height: 1.2;
+  }
+  .nav-name span { color: #9f7ae8; font-size: 11px; font-weight: 400; display: block; font-family: 'Nunito', sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--deep);
+    border: none; padding: 10px 22px; border-radius: 30px;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px;
+    cursor: pointer; letter-spacing: 0.5px; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,180,41,0.4); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(155deg, #1a0a38 0%, #2d1b69 35%, #4a2fa0 65%, #6b46c1 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 100px 60px 60px;
+  }
+  .hero-orbs {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.18;
+    animation: drift 8s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 500px; height: 500px; background: #7c4dff; top: -100px; right: -100px; animation-delay: 0s; }
+  .orb2 { width: 350px; height: 350px; background: #9f7ae8; bottom: 50px; left: 200px; animation-delay: 2s; }
+  .orb3 { width: 250px; height: 250px; background: var(--gold); top: 200px; right: 300px; animation-delay: 4s; opacity: 0.1; }
+
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(30px, 20px) scale(1.05); }
+  }
+
+  /* Cross watermark */
+  .hero-cross {
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    opacity: 0.06;
+  }
+  .hero-cross::before, .hero-cross::after {
+    content: ''; position: absolute; background: white; border-radius: 8px;
+  }
+  .hero-cross::before { width: 40px; height: 240px; left: 80px; top: 0; }
+  .hero-cross::after  { width: 200px; height: 40px; left: 0; top: 80px; }
+
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #d4c5f9; padding: 6px 16px; border-radius: 30px;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before { content: '✦'; color: var(--gold); }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 78px);
+    font-weight: 900; color: var(--white);
+    line-height: 1.05; margin-bottom: 12px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--gold);
+  }
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    color: var(--light); font-weight: 700; font-style: italic;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero p {
+    font-size: 17px; color: rgba(200,224,252,0.85);
+    line-height: 1.7; max-width: 520px; margin-bottom: 40px;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--deep);
+    padding: 16px 36px; border-radius: 50px; border: none;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px;
+    cursor: pointer; transition: all 0.25s; letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(240,180,41,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(240,180,41,0.5); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 16px 36px; border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.4);
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 15px;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* SERVICE TIMES STRIP */
+  .service-strip {
+    background: var(--gold);
+    padding: 18px 60px;
+    display: flex; align-items: center; justify-content: center; gap: 60px;
+    flex-wrap: wrap;
+  }
+  .service-strip-label {
+    font-weight: 800; font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--deep); opacity: 0.6;
+  }
+  .service-item {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .service-dot { width: 8px; height: 8px; border-radius: 50%; background: #1a0a38; opacity: 0.4; }
+  .service-time {
+    font-weight: 800; font-size: 16px; color: var(--deep);
+  }
+  .service-name { font-size: 13px; color: var(--deep); opacity: 0.7; }
+
+  /* WELCOME SECTION */
+  .welcome {
+    padding: 100px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .welcome-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px; font-weight: 700; color: var(--navy);
+    line-height: 1.15; margin-bottom: 20px;
+  }
+  .welcome-text h2 span { color: #4a2fa0; }
+  .welcome-text p {
+    font-size: 16px; line-height: 1.8; color: #445; margin-bottom: 16px;
+  }
+  .welcome-text .signature {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 20px; color: #4a2fa0; margin-top: 24px;
+  }
+  .welcome-visual {
+    position: relative;
+  }
+  .welcome-card {
+    background: linear-gradient(135deg, #2d1b69, #4a2fa0);
+    border-radius: 24px; padding: 48px;
+    color: white; position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(26,58,107,0.3);
+  }
+  .welcome-card::before {
+    content: '"'; position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 200px; color: rgba(255,255,255,0.05);
+    top: -30px; left: 20px; line-height: 1;
+  }
+  .welcome-card blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-style: italic; line-height: 1.5;
+    color: var(--light); margin-bottom: 20px; position: relative;
+  }
+  .welcome-card cite {
+    font-size: 13px; color: var(--sky); letter-spacing: 1px;
+    text-transform: uppercase; font-style: normal; font-weight: 700;
+  }
+  .welcome-card-accent {
+    position: absolute; bottom: 0; right: 0;
+    width: 120px; height: 120px;
+    background: rgba(245,166,35,0.15);
+    border-radius: 60px 0 24px 0;
+  }
+
+  /* STATS */
+  .stats {
+    background: #1a0a38;
+    padding: 60px;
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+  }
+  .stat {
+    flex: 1; min-width: 160px; text-align: center;
+    padding: 20px 40px; border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; font-weight: 900; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: var(--sky); letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; font-weight: 700; }
+
+  /* MINISTRIES */
+  .ministries { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-tag {
+    display: inline-block;
+    color: #6b46c1; font-size: 12px; font-weight: 800;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 700; color: var(--navy); line-height: 1.2;
+  }
+  .ministries-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .ministry-card {
+    background: white; border-radius: 20px; padding: 36px 28px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 20px rgba(26,58,107,0.07);
+    transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .ministry-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, #4a2fa0, #7c4dff);
+    transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+  }
+  .ministry-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(26,58,107,0.15); border-color: var(--light); }
+  .ministry-card:hover::after { transform: scaleX(1); }
+  .ministry-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: linear-gradient(135deg, #e9e0fc, rgba(107,70,193,0.1));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 18px;
+  }
+  .ministry-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy); margin-bottom: 8px;
+  }
+  .ministry-card p { font-size: 14px; color: #667; line-height: 1.6; }
+
+  /* SERMONS */
+  .sermons-section {
+    background: linear-gradient(180deg, #2d1b69 0%, #1a0a38 100%);
+    padding: 100px 60px;
+  }
+  .sermons-inner { max-width: 1200px; margin: 0 auto; }
+  .sermons-section .section-tag { color: #9f7ae8; }
+  .sermons-section .section-header h2 { color: white; }
+  .sermons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .sermon-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 28px; transition: all 0.3s; cursor: pointer;
+  }
+  .sermon-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .sermon-date { font-size: 11px; color: var(--sky); letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+  .sermon-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: white; margin-bottom: 8px; line-height: 1.3;
+  }
+  .sermon-card p { font-size: 13px; color: rgba(200,224,252,0.6); margin-bottom: 16px; line-height: 1.5; }
+  .sermon-meta { display: flex; align-items: center; justify-content: space-between; }
+  .sermon-pastor { font-size: 12px; color: #9f7ae8; font-weight: 700; }
+  .play-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--gold); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s; font-size: 12px;
+  }
+  .play-btn:hover { transform: scale(1.1); }
+
+  /* EVENTS */
+  .events { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  .events-list { display: flex; flex-direction: column; gap: 16px; }
+  .event-item {
+    display: flex; align-items: center; gap: 24px;
+    background: white; border-radius: 16px; padding: 24px 28px;
+    box-shadow: 0 2px 16px rgba(26,58,107,0.06); transition: all 0.25s;
+    cursor: pointer;
+  }
+  .event-item:hover { transform: translateX(6px); box-shadow: 0 6px 24px rgba(26,58,107,0.12); }
+  .event-date-box {
+    background: linear-gradient(135deg, #4a2fa0, #6b46c1);
+    border-radius: 12px; padding: 12px 16px; text-align: center;
+    min-width: 64px; color: white;
+  }
+  .event-month { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8; }
+  .event-day { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .event-info { flex: 1; }
+  .event-info h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .event-info p { font-size: 13px; color: #778; }
+  .event-tag {
+    background: #e9e0fc; color: #4a2fa0;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* VISIT CTA */
+  .visit-cta {
+    background: var(--gold); padding: 80px 60px; text-align: center;
+  }
+  .visit-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; color: var(--deep); margin-bottom: 16px;
+  }
+  .visit-cta p { font-size: 18px; color: rgba(10,31,68,0.7); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .visit-details {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .visit-detail { text-align: center; }
+  .visit-detail-icon { font-size: 28px; margin-bottom: 6px; }
+  .visit-detail strong { display: block; font-size: 16px; color: var(--deep); }
+  .visit-detail span { font-size: 13px; color: rgba(10,31,68,0.6); }
+  .btn-dark {
+    background: #1a0a38; color: white;
+    padding: 16px 40px; border-radius: 50px; border: none;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 16px;
+    cursor: pointer; transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(10,31,68,0.3);
+  }
+  .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(10,31,68,0.4); }
+
+  /* FOOTER */
+  footer {
+    background: #1a0a38; padding: 60px; color: rgba(200,224,252,0.6);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  }
+  .footer-brand h3 {
+    font-family: 'Playfair Display', serif; font-size: 20px; color: #d4c5f9; margin-bottom: 12px;
+  }
+  .footer-brand p { font-size: 14px; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 800; margin-bottom: 16px; }
+  .footer-col a { display: block; color: rgba(200,224,252,0.6); text-decoration: none; font-size: 14px; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: #f5a623; }
+  .footer-bottom {
+    max-width: 1200px; margin: 40px auto 0;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center; font-size: 13px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-cross"></div>
+    <div class="nav-name">
+      St. James Healing Church of Christ
+      <span>Baltimore, Maryland</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Visit</a>
+    <a href="#">Sermons</a>
+    <a href="#">Ministries</a>
+    <a href="#">Events</a>
+  </div>
+  <button class="nav-cta">Give ✦</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="hero-cross"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Welcome to our community</div>
+    <h1>Where <em>Faith</em><br>Meets Healing</h1>
+    <p class="hero-sub">St. James Healing Church of Christ</p>
+    <p>A vibrant community rooted in God's love, united in worship, and called to bring healing and hope to every life we touch.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Plan Your Visit →</button>
+      <button class="btn-outline">Watch Sermons</button>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE TIMES STRIP -->
+<div class="service-strip">
+  <span class="service-strip-label">Join Us</span>
+  <div class="service-item">
+    <div class="service-dot"></div>
+    <div>
+      <div class="service-time">Sunday School — 9:00 AM</div>
+    </div>
+  </div>
+  <div class="service-item">
+    <div class="service-dot"></div>
+    <div>
+      <div class="service-time">Sunday Worship — 11:00 AM</div>
+    </div>
+  </div>
+  <div class="service-item">
+    <div class="service-dot"></div>
+    <div>
+      <div class="service-time">Wednesday Bible Study — 7:00 PM</div>
+    </div>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<section class="welcome">
+  <div class="welcome-text">
+    <h2>You Are<br><span>Welcome Here</span></h2>
+    <p>St. James Healing Church of Christ is more than a place of worship — it's a family. Whether you're coming for the first time or returning home, you will find a warm embrace, an open heart, and a community that genuinely cares.</p>
+    <p>We believe in the transformative power of God's grace, the healing that comes through faith, and the joy of walking together as one body in Christ.</p>
+    <div class="signature">— Pastor & Leadership Team</div>
+  </div>
+  <div class="welcome-visual">
+    <div class="welcome-card">
+      <blockquote>"He heals the brokenhearted and binds up their wounds."</blockquote>
+      <cite>Psalm 147:3</cite>
+      <div class="welcome-card-accent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">25+</div>
+    <div class="stat-label">Years of Ministry</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Church Family</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Active Ministries</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100s</div>
+    <div class="stat-label">Lives Touched</div>
+  </div>
+</div>
+
+<!-- MINISTRIES -->
+<section class="ministries">
+  <div class="section-header">
+    <div class="section-tag">✦ Get Involved</div>
+    <h2>Our Ministries</h2>
+  </div>
+  <div class="ministries-grid">
+    <div class="ministry-card">
+      <div class="ministry-icon">🙏</div>
+      <h3>Worship Ministry</h3>
+      <p>Leading the congregation into the presence of God through music, praise, and Spirit-filled worship every Sunday.</p>
+    </div>
+    <div class="ministry-card">
+      <div class="ministry-icon">👨‍👩‍👧‍👦</div>
+      <h3>Family & Youth</h3>
+      <p>Nurturing the next generation in faith, with dedicated programs for children, teens, and young adults.</p>
+    </div>
+    <div class="ministry-card">
+      <div class="ministry-icon">💪</div>
+      <h3>Men's Fellowship</h3>
+      <p>Building strong men of God through brotherhood, accountability, and service to the church and community.</p>
+    </div>
+    <div class="ministry-card">
+      <div class="ministry-icon">👑</div>
+      <h3>Women's Ministry</h3>
+      <p>Empowering women to walk in their God-given purpose through fellowship, prayer, and discipleship.</p>
+    </div>
+    <div class="ministry-card">
+      <div class="ministry-icon">🤲</div>
+      <h3>Outreach & Missions</h3>
+      <p>Extending God's love beyond our walls — feeding the hungry, serving the community, and sharing the Gospel.</p>
+    </div>
+    <div class="ministry-card">
+      <div class="ministry-icon">💚</div>
+      <h3>Healing & Prayer</h3>
+      <p>Standing in faith for wholeness — body, mind, and spirit — through dedicated prayer and healing services.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERMONS -->
+<section class="sermons-section">
+  <div class="sermons-inner">
+    <div class="section-header">
+      <div class="section-tag">✦ The Word</div>
+      <h2 style="color:white">Recent Sermons</h2>
+    </div>
+    <div class="sermons-grid">
+      <div class="sermon-card">
+        <div class="sermon-date">March 9, 2025</div>
+        <h3>Walking in Divine Healing</h3>
+        <p>God's promises for restoration are as alive today as ever before. Let faith arise.</p>
+        <div class="sermon-meta">
+          <span class="sermon-pastor">Pastor James Sr.</span>
+          <button class="play-btn">▶</button>
+        </div>
+      </div>
+      <div class="sermon-card">
+        <div class="sermon-date">March 2, 2025</div>
+        <h3>The Power of Unified Prayer</h3>
+        <p>When two or three gather in His name, mountains are moved and lives are changed.</p>
+        <div class="sermon-meta">
+          <span class="sermon-pastor">Pastor James Sr.</span>
+          <button class="play-btn">▶</button>
+        </div>
+      </div>
+      <div class="sermon-card">
+        <div class="sermon-date">Feb 23, 2025</div>
+        <h3>Rise Up: Faith Over Fear</h3>
+        <p>In every storm, God's word is the anchor that keeps us grounded and unshaken.</p>
+        <div class="sermon-meta">
+          <span class="sermon-pastor">Minister Williams</span>
+          <button class="play-btn">▶</button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <button class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white">View All Sermons →</button>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events">
+  <div class="section-header">
+    <div class="section-tag">✦ Community</div>
+    <h2>Upcoming Events</h2>
+  </div>
+  <div class="events-list">
+    <div class="event-item">
+      <div class="event-date-box"><div class="event-month">Mar</div><div class="event-day">22</div></div>
+      <div class="event-info">
+        <h3>Spring Revival Service</h3>
+        <p>6:00 PM · Main Sanctuary · Guest Speaker: Bishop Harold Green</p>
+      </div>
+      <span class="event-tag">Revival</span>
+    </div>
+    <div class="event-item">
+      <div class="event-date-box"><div class="event-month">Mar</div><div class="event-day">29</div></div>
+      <div class="event-info">
+        <h3>Community Food Pantry Drive</h3>
+        <p>10:00 AM – 2:00 PM · Fellowship Hall · Volunteers welcome</p>
+      </div>
+      <span class="event-tag">Outreach</span>
+    </div>
+    <div class="event-item">
+      <div class="event-date-box"><div class="event-month">Apr</div><div class="event-day">5</div></div>
+      <div class="event-info">
+        <h3>Palm Sunday Celebration</h3>
+        <p>11:00 AM · All are welcome to this special worship service</p>
+      </div>
+      <span class="event-tag">Worship</span>
+    </div>
+    <div class="event-item">
+      <div class="event-date-box"><div class="event-month">Apr</div><div class="event-day">18</div></div>
+      <div class="event-info">
+        <h3>Good Friday Prayer Vigil</h3>
+        <p>7:00 PM · A solemn evening of reflection and intercession</p>
+      </div>
+      <span class="event-tag">Prayer</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px">
+    <button class="btn-primary">View Full Calendar →</button>
+  </div>
+</section>
+
+<!-- VISIT CTA -->
+<section class="visit-cta">
+  <h2>Come As You Are</h2>
+  <p>No matter where you've been or what you've been through — there is a place for you here.</p>
+  <div class="visit-details">
+    <div class="visit-detail">
+      <div class="visit-detail-icon">📍</div>
+      <strong>123 Faith Avenue</strong>
+      <span>Baltimore, Maryland</span>
+    </div>
+    <div class="visit-detail">
+      <div class="visit-detail-icon">🕐</div>
+      <strong>Sunday 9AM & 11AM</strong>
+      <span>Wednesday 7PM</span>
+    </div>
+    <div class="visit-detail">
+      <div class="visit-detail-icon">📞</div>
+      <strong>(410) 555-0100</strong>
+      <span>info@stjameshcc.org</span>
+    </div>
+  </div>
+  <button class="btn-dark">Plan Your Visit →</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>St. James Healing Church of Christ</h3>
+      <p>A community of faith, healing, and hope — rooted in the love of Jesus Christ and committed to transforming lives.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Plan Your Visit</a>
+      <a href="#">Sermons</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Ministries</a>
+      <a href="#">Events</a>
+      <a href="#">Give Online</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <a href="#">Facebook</a>
+      <a href="#">YouTube</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 St. James Healing Church of Christ · Baltimore, Maryland · Made with ♥ for God's glory
+  </div>
+</footer>
+
+</body>
+</html>
