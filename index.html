@@ -385,6 +385,12 @@
 
 
 <!-- St. James Church Agent -->
+<script>
+  // Always start widget closed on page load
+  Object.keys(localStorage).forEach(function(key) {
+    if (key.includes('voiceflow')) localStorage.removeItem(key);
+  });
+</script>
 <script type="text/javascript">
   (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
