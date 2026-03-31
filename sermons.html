@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sermons — St. James Healing Church of Christ</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep:#1a0a38; --navy:#2d1b69; --royal:#4a2fa0;
+    --bright:#6b46c1; --sky:#9f7ae8; --light:#e9e0fc;
+    --cream:#f7f4fe; --gold:#f5a623; --white:#ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--deep); overflow-x:hidden; }
+  nav {
+    position:fixed; top:0; width:100%; z-index:100;
+    background:rgba(26,10,56,0.97); backdrop-filter:blur(10px);
+    padding:0 40px; display:flex; align-items:center; justify-content:space-between;
+    height:70px; border-bottom:2px solid rgba(107,70,193,0.4);
+  }
+  .nav-brand { display:flex; align-items:center; gap:12px; }
+  .nav-cross { width:32px; height:32px; position:relative; flex-shrink:0; }
+  .nav-cross::before,.nav-cross::after { content:''; position:absolute; background:var(--gold); border-radius:3px; }
+  .nav-cross::before { width:6px; height:32px; left:13px; top:0; }
+  .nav-cross::after  { width:32px; height:6px; left:0; top:10px; }
+  .nav-name { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--white); line-height:1.2; }
+  .nav-name span { color:#9f7ae8; font-size:11px; font-weight:400; display:block; font-family:'Nunito',sans-serif; letter-spacing:2px; text-transform:uppercase; }
+  .nav-links { display:flex; gap:18px; }
+  .nav-links a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover,.nav-links a.active { color:var(--gold); }
+  .nav-cta { background:var(--gold); color:var(--deep); border:none; padding:10px 22px; border-radius:30px; font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; cursor:pointer; }
+
+  .page-hero {
+    padding:140px 60px 40px;
+    background:linear-gradient(160deg,#0d0d1a 0%,#1a1030 40%,#2a1a50 75%,#1f1040 100%);
+    text-align:center; position:relative; overflow:hidden;
+  }
+  .page-hero::before { content:''; position:absolute; width:400px; height:400px; border-radius:50%; background:rgba(107,70,193,0.2); top:-100px; right:-100px; }
+  .page-hero::after  { content:''; position:absolute; width:300px; height:300px; border-radius:50%; background:rgba(159,122,232,0.15); bottom:-50px; left:-50px; }
+  .page-hero-tag { display:inline-block; color:#d4c5f9; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; position:relative; }
+  .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(36px,5vw,62px); font-weight:900; color:white; margin-bottom:16px; position:relative; }
+  .page-hero h1 em { font-style:italic; color:var(--gold); }
+  .page-hero p { font-size:18px; color:rgba(212,197,249,0.85); max-width:600px; margin:0 auto; line-height:1.7; position:relative; }
+
+  .sermons-section { padding:80px 60px; max-width:1100px; margin:0 auto; }
+  .section-tag { color:var(--royal); font-size:12px; font-weight:800; letter-spacing:3px; text-transform:uppercase; display:block; margin-bottom:10px; }
+  .sermons-section h2 { font-family:'Playfair Display',serif; font-size:40px; font-weight:700; color:var(--navy); margin-bottom:40px; }
+
+  .sermon-card {
+    background:white; border-radius:24px; overflow:hidden;
+    box-shadow:0 4px 24px rgba(74,47,160,0.08);
+    margin-bottom:28px; display:flex; transition:all 0.3s;
+  }
+  .sermon-card:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(74,47,160,0.14); }
+  .sermon-card.featured { border:2px solid var(--gold); }
+
+  .sermon-thumb {
+    width:220px; min-height:180px; flex-shrink:0;
+    background:linear-gradient(135deg,#2d1b69,#4a2fa0);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .sermon-thumb::before { content:''; position:absolute; width:150px; height:150px; border-radius:50%; background:rgba(255,255,255,0.05); top:-40px; right:-40px; }
+  .sermon-play { width:60px; height:60px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:12px; cursor:pointer; transition:transform 0.2s; position:relative; }
+  .sermon-play:hover { transform:scale(1.1); }
+  .sermon-thumb-date { font-size:11px; color:rgba(212,197,249,0.8); font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+
+  .sermon-body { padding:32px 36px; flex:1; }
+  .sermon-badge { display:inline-block; background:rgba(245,166,35,0.15); color:#8a5a00; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+  .sermon-tag { display:inline-block; background:var(--light); color:var(--royal); padding:4px 12px; border-radius:20px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+  .sermon-body h3 { font-family:'Playfair Display',serif; font-size:24px; color:var(--navy); margin-bottom:8px; line-height:1.3; }
+  .sermon-body p { font-size:14px; color:#556; line-height:1.7; margin-bottom:16px; }
+  .sermon-info { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px; }
+  .sermon-info-item { font-size:13px; color:#889; font-weight:700; display:flex; align-items:center; gap:6px; }
+  .sermon-timestamp { background:rgba(74,47,160,0.08); border:1px solid var(--light); border-radius:10px; padding:10px 16px; font-size:13px; color:var(--royal); font-weight:700; margin-bottom:20px; display:inline-block; }
+  .btn-watch { background:var(--royal); color:white; padding:12px 28px; border-radius:30px; border:none; font-family:'Nunito',sans-serif; font-weight:800; font-size:14px; cursor:pointer; transition:all 0.25s; text-decoration:none; display:inline-block; }
+  .btn-watch:hover { background:var(--bright); transform:translateY(-2px); }
+  .btn-watch.gold { background:var(--gold); color:var(--deep); }
+  .btn-watch.gold:hover { box-shadow:0 6px 20px rgba(245,166,35,0.4); }
+
+  .placeholder-card {
+    background:white; border-radius:24px; padding:40px;
+    box-shadow:0 2px 16px rgba(74,47,160,0.06);
+    margin-bottom:28px; display:flex; align-items:center; gap:28px;
+    border:2px dashed rgba(74,47,160,0.2);
+  }
+  .placeholder-icon { width:70px; height:70px; background:var(--light); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:32px; flex-shrink:0; }
+  .placeholder-card h3 { font-family:'Playfair Display',serif; font-size:20px; color:#aab; margin-bottom:6px; }
+  .placeholder-card p { font-size:14px; color:#bbc; }
+
+  .facebook-cta { background:linear-gradient(135deg,#2d1b69,#4a2fa0); padding:80px 60px; text-align:center; }
+  .facebook-cta h2 { font-family:'Playfair Display',serif; font-size:40px; color:white; margin-bottom:16px; }
+  .facebook-cta p { font-size:16px; color:rgba(212,197,249,0.8); margin-bottom:32px; max-width:500px; margin-left:auto; margin-right:auto; }
+  .btn-gold { background:var(--gold); color:var(--deep); padding:14px 36px; border-radius:50px; border:none; font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; cursor:pointer; transition:all 0.25s; text-decoration:none; display:inline-block; }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,166,35,0.4); }
+
+  footer { background:#1a0a38; padding:60px; color:rgba(212,197,249,0.7); }
+  .footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; }
+  .footer-brand h3 { font-family:'Playfair Display',serif; font-size:20px; color:#d4c5f9; margin-bottom:12px; }
+  .footer-brand p { font-size:14px; line-height:1.7; }
+  .footer-col h4 { color:white; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:800; margin-bottom:16px; }
+  .footer-col a { display:block; color:rgba(212,197,249,0.6); text-decoration:none; font-size:14px; margin-bottom:8px; transition:color 0.2s; }
+  .footer-col a:hover { color:var(--gold); }
+  .footer-bottom { max-width:1200px; margin:40px auto 0; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); text-align:center; font-size:13px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-cross"></div>
+    <div class="nav-name">St. James Healing Church of Christ<span>College Park, Maryland</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="visit.html">Visit</a>
+    <a href="sermons.html" class="active">Sermons</a>
+    <a href="ministries.html">Ministries</a>
+    <a href="events.html">Events</a>
+    <a href="give.html">Give</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="window.location='give.html'">Give ✦</button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-tag">✦ The Word</div>
+  <h1>Sunday <em>Sermons</em></h1>
+  <p>Every message is a Word from God for your life. Watch our latest sermons and be blessed!</p>
+</section>
+
+
+<!-- LIVE STREAM SECTION -->
+<section style="background:linear-gradient(160deg,#0d0d1a 0%,#1a1030 40%,#2a1a50 75%,#1f1040 100%);padding:40px 60px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div id="live-badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(220,38,38,0.2);border:1px solid rgba(220,38,38,0.4);color:#fca5a5;padding:8px 20px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">
+        <span style="width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse 1.5s infinite;display:inline-block;"></span>
+        Live Every Sunday 10:00 AM
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:40px;color:white;margin-bottom:12px;">Watch Us <em style="color:#f5a623;">Live</em></h2>
+      <p style="font-size:16px;color:rgba(212,197,249,0.8);max-width:600px;margin:0 auto;">Can't make it in person? Watch our Sunday service live right here! We stream every Sunday at 10:00 AM on Facebook.</p>
+    </div>
+
+    <!-- Live Service Card -->
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:60px 40px;margin-bottom:24px;text-align:center;">
+      <div style="font-size:64px;margin-bottom:20px;">📺</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:28px;color:white;margin-bottom:12px;">Join Us Live This Sunday!</h3>
+      <p style="font-size:16px;color:rgba(212,197,249,0.8);max-width:500px;margin:0 auto 28px;">Every Sunday at 10:00 AM we go live on Facebook. Click below to join us for worship, prayer and the Word of God!</p>
+      <a href="https://facebook.com/sjhcc.praise.3" target="_blank" style="background:#f5a623;color:#1a0a38;padding:14px 36px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;text-decoration:none;display:inline-block;">Watch Live on Facebook →</a>
+    </div>
+
+    <!-- If not live message -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
+      <a href="https://facebook.com/sjhcc.praise.3" target="_blank" style="background:#f5a623;color:#1a0a38;padding:14px 32px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;text-decoration:none;transition:all 0.25s;">
+        Watch on Facebook →
+      </a>
+      <a href="https://facebook.com/sjhcc.praise.3" target="_blank" style="background:transparent;color:white;padding:14px 32px;border-radius:50px;border:2px solid rgba(255,255,255,0.3);font-family:'Nunito',sans-serif;font-weight:700;font-size:15px;text-decoration:none;">
+        Follow Our Page
+      </a>
+    </div>
+
+    <div style="margin-top:24px;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);border-radius:16px;padding:16px 24px;text-align:center;">
+      <p style="font-size:14px;color:rgba(212,197,249,0.7);">💡 <strong style="color:#f5a623;">Not seeing the live stream?</strong> We go live every Sunday at 10:00 AM. Outside of service times, you can watch our latest recorded services below or on our Facebook page.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+</style>
+
+<section class="sermons-section">
+  <span class="section-tag">✦ Recent Messages</span>
+  <h2>Latest Sermons</h2>
+
+  <!-- Latest Real Sermon -->
+  <div class="sermon-card featured">
+    <div class="sermon-thumb">
+      <div class="sermon-play">▶</div>
+      <div class="sermon-thumb-date">Mar 29, 2026</div>
+    </div>
+    <div class="sermon-body">
+      <span class="sermon-badge">⭐ Latest Message</span>
+      <h3>Palm Sunday Worship Service</h3>
+      <p>Join us for our Palm Sunday worship service featuring praise, prayer, and a powerful message from the Word of God delivered by Rev. Immunrandi Vandi.</p>
+      <div class="sermon-info">
+        <span class="sermon-info-item">🎙️ Rev. Immunrandi Vandi</span>
+        <span class="sermon-info-item">📅 March 29, 2026</span>
+      </div>
+      <div class="sermon-timestamp">💡 This is the full sermon clip — just press play and be blessed! 🙏</div>
+      <a href="https://www.facebook.com/share/v/1ApWVXoAbG/" target="_blank" class="btn-watch gold">Watch on Facebook →</a>
+    </div>
+  </div>
+
+  <!-- March 15 Sermon -->
+  <div class="sermon-card">
+    <div class="sermon-thumb">
+      <div class="sermon-play">▶</div>
+      <div class="sermon-thumb-date">Mar 15, 2026</div>
+    </div>
+    <div class="sermon-body">
+      <span class="sermon-tag">Sunday Service</span>
+      <h3>Sunday Morning Worship Service</h3>
+      <p>A powerful Sunday morning worship service delivered by Prophetess Batilie Kanu. Be blessed by the Word of God!</p>
+      <div class="sermon-info">
+        <span class="sermon-info-item">🎙️ Prophetess Batilie Kanu</span>
+        <span class="sermon-info-item">📅 March 15, 2026</span>
+      </div>
+      <div class="sermon-timestamp">💡 This is the full sermon clip — just press play and be blessed! 🙏</div>
+      <a href="https://www.facebook.com/share/v/1CcxteubhN/" target="_blank" class="btn-watch">Watch on Facebook →</a>
+    </div>
+  </div>
+
+  <!-- March 8 Sermon -->
+  <div class="sermon-card">
+    <div class="sermon-thumb">
+      <div class="sermon-play">▶</div>
+      <div class="sermon-thumb-date">Mar 8, 2026</div>
+    </div>
+    <div class="sermon-body">
+      <span class="sermon-tag">Sunday Service</span>
+      <h3>Sunday Worship Service</h3>
+      <p>A powerful Sunday morning worship service delivered by Rev. Emilie Pearce-Chapman. Be blessed by the Word of God!</p>
+      <div class="sermon-info">
+        <span class="sermon-info-item">🎙️ Rev. Emilie Pearce-Chapman</span>
+        <span class="sermon-info-item">📅 March 8, 2026</span>
+      </div>
+      <div class="sermon-timestamp">💡 This is the full sermon clip — just press play and be blessed! 🙏</div>
+      <a href="https://www.facebook.com/share/v/18LX1GMKuH/" target="_blank" class="btn-watch">Watch on Facebook →</a>
+    </div>
+  </div>
+
+</section>
+
+<section class="facebook-cta">
+  <h2>Watch All Our Services</h2>
+  <p>Every Sunday service is streamed live on our Facebook page. Follow us so you never miss a message!</p>
+  <a href="https://facebook.com/sjhcc.praise.3" target="_blank" class="btn-gold">Follow Us on Facebook →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>St. James Healing Church of Christ</h3>
+      <p>A community of faith, healing, and hope — rooted in the love of Jesus Christ.</p>
+      <div style="margin-top:16px;font-size:13px;">
+        <div>📍 5051 Pierce Avenue, College Park, MD 20740</div>
+        <div style="margin-top:6px;">📞 (240) 893-4351</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="visit.html">Plan Your Visit</a>
+      <a href="sermons.html">Sermons</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="ministries.html">Ministries</a>
+      <a href="events.html">Events</a>
+      <a href="give.html">Give Online</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <a href="https://facebook.com/sjhcc.praise.3" target="_blank">Facebook</a>
+      <a href="https://www.youtube.com/@SJHCCChurch" target="_blank">YouTube</a>
+      <a href="https://www.instagram.com/praisesjhcc" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 St. James Healing Church of Christ · College Park, Maryland · Made with ♥ for God's glory</div>
+</footer>
+
+
+<!-- St. James Church Agent -->
+<script>
+  Object.keys(localStorage).forEach(function(key) {
+    if (key.includes('voiceflow')) localStorage.removeItem(key);
+  });
+</script>
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '69b3f9536fbcccbb9f5644ea' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: { url: "https://runtime-api.voiceflow.com" },
+          render: { mode: 'overlay' },
+          autostart: false
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+</body>
+</html>
